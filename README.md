@@ -1,170 +1,269 @@
-# JobMatch AI 🚀
+# 🚀 JobMatch AI – Smart Resume Matching System
 
-A modern, AI-powered job matching platform that connects job seekers with their perfect opportunities and helps recruiters find ideal candidates through intelligent resume-job matching.
+A full-stack AI-powered job matching platform that intelligently connects job seekers with relevant opportunities and helps recruiters identify the best candidates using advanced Natural Language Processing (NLP) and semantic similarity.
 
-![JobMatch AI](https://img.shields.io/badge/React-19.2.0-blue)
-![Express](https://img.shields.io/badge/Express-4.18.2-green)
-![MongoDB](https://img.shields.io/badge/MongoDB-8.0.3-47A248)
-![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4.0-38B2AC)
-![Vite](https://img.shields.io/badge/Vite-6.4.0-646CFF)
-![License](https://img.shields.io/badge/License-MIT-green)
+---
+
+## 🌟 Overview
+
+JobMatch AI analyzes resumes and job descriptions using both **keyword-based** and **semantic AI techniques** to generate an accurate match score. It provides detailed insights into skills, experience, and missing requirements — helping users improve their chances of selection.
+
+---
 
 ## ✨ Features
 
-### For Job Seekers
-- 📄 **Smart Resume Upload**: PDF/DOCX support with instant processing
-- 🎯 **AI-Powered Matching**: Get percentage-based job compatibility scores
-- 📊 **Detailed Analysis**: See exactly why you match (skills, experience, education)
-- 💡 **Personalized Recommendations**: Get specific advice to improve your resume
-- 🔍 **Job Discovery**: Browse and apply to relevant positions
+### 👩‍💻 For Job Seekers
 
-### For Recruiters
-- 🛠️ **Interactive Job Builder**: Create job postings with clickable options
-- 📸 **Image Upload**: Extract job descriptions from images using OCR
-- 👥 **Candidate Management**: View all applicants with detailed match breakdowns
-- 📈 **Smart Sorting**: Sort candidates by overall match, skills, or experience
-- 👀 **Resume Viewer**: Full-screen resume analysis with match overlay
+* 📄 Upload resumes (PDF/DOCX)
+* 🎯 Get AI-based match percentage
+* 📊 Detailed breakdown (skills, experience, education)
+* 💡 Personalized improvement suggestions
+* 🔍 Browse and apply for jobs
 
-### Technical Features
-- 🎨 **Modern Dark Theme**: Professional, eye-friendly interface
-- ⚡ **Smooth Animations**: Polished user experience with CSS animations
-- 📱 **Responsive Design**: Works perfectly on all devices
-- 🔐 **Secure Authentication**: JWT-based auth with session management
-- 🚀 **Fast Performance**: Built with Vite for lightning-fast development
+---
+
+### 🧑‍💼 For Recruiters
+
+* 🛠️ Create job postings easily
+* 👥 View candidate applications
+* 📈 Sort candidates by match score
+* 📑 Resume analysis with highlights
+* 📸 Extract job data from images (OCR)
+
+---
+
+## 🧠 AI / NLP Implementation
+
+This project uses multiple NLP techniques:
+
+### 🔹 1. TF-IDF (Term Frequency - Inverse Document Frequency)
+
+* Identifies important keywords
+* Used for keyword-based matching
+
+---
+
+### 🔹 2. Cosine Similarity
+
+* Measures similarity between vectors
+* Used for comparing resume & job vectors
+
+---
+
+### 🔹 3. SBERT (Sentence-BERT) ⭐
+
+* Deep learning-based semantic model
+* Understands meaning (not just keywords)
+* Handles different wordings with same meaning
+
+---
+
+## 🔗 System Architecture
+
+```text
+Frontend (React)
+        ↓
+Backend (Node.js / Express)
+        ↓
+SBERT API (Python Flask)
+        ↓
+Semantic Similarity Score
+```
+
+👉 This follows a **microservice architecture**, where:
+
+* Node.js handles application logic
+* Python handles AI model
+
+---
 
 ## 🛠️ Tech Stack
 
-### Frontend
-- **React** 19.2.0 with JSX
-- **React Router DOM** 7.9.4
-- **Tailwind CSS** 3.4.0
-- **Vite** 6.4.0
+### 🔹 Frontend
 
-### Backend
-- **Express.js** 4.18.2
-- **MongoDB** with Mongoose 8.0.3
-- **Authentication** with bcryptjs & sessions
-- **Security** with Helmet, CORS, Rate Limiting
+* React.js
+* Vite
+* Tailwind CSS
+* React Router
 
-## 🚀 Quick Start
+---
 
-### Prerequisites
-- Node.js (v16 or higher)
-- MongoDB (local or Atlas)
-- npm or yarn
+### 🔹 Backend
 
-### Installation
+* Node.js
+* Express.js
+* MongoDB (Mongoose)
+* JWT Authentication
 
-1. **Clone the repository**
+---
+
+### 🔹 AI / NLP
+
+* natural (TF-IDF)
+* string-similarity
+* SBERT (sentence-transformers in Python)
+* Cosine Similarity
+
+---
+
+## 🚀 Installation & Setup
+
+### 📌 Prerequisites
+
+* Node.js (v16+)
+* MongoDB
+* Python 3.x
+* npm
+
+---
+
+## 📥 Step 1: Clone Repository
+
 ```bash
-git clone https://github.com/SAM160706/Matching-Resumes-against-Job-Description.git
-cd jobmatch-ai
+git clone https://github.com/Dhanashri1010/smart-resume-matcher.git
+cd smart-resume-matcher
 ```
 
-2. **Install dependencies**
+---
+
+## 📦 Step 2: Install Dependencies
+
 ```bash
 npm install
 ```
 
-3. **Setup environment**
+---
+
+## 🐍 Step 3: Install Python Packages
+
 ```bash
-cp .env.server.example .env.server
-# Edit .env.server with your MongoDB URI and session secret
+pip install flask sentence-transformers
 ```
 
-4. **Start both frontend and backend**
+---
+
+## ⚙️ Step 4: Environment Setup
+
+Create `.env.server` file:
+
+```env
+MONGODB_URI=mongodb://localhost:27017/jobmatch-ai
+SESSION_SECRET=your_secret_key
+PORT=5001
+```
+
+---
+
+## ▶️ Step 5: Run the Project
+
+### 🔹 Start SBERT API
+
+```bash
+python sbert_api.py
+```
+
+👉 Runs on:
+
+```
+http://127.0.0.1:5000
+```
+
+---
+
+### 🔹 Start Full Application
+
 ```bash
 npm start
 ```
 
-Or run them separately:
-```bash
-# Frontend only
-npm run dev
+---
 
-# Backend only
-npm run server:dev
-```
+## 🌐 Access URLs
 
-5. **Open your browser**
-   - Frontend: `http://localhost:3000`
-   - Backend API: `http://localhost:5001`
+| Service   | URL                   |
+| --------- | --------------------- |
+| Frontend  | http://localhost:3000 |
+| Backend   | http://localhost:5001 |
+| SBERT API | http://127.0.0.1:5000 |
+
+---
 
 ## 📁 Project Structure
 
-```
-jobmatch-ai/
-├── src/                     # Frontend React app
-│   ├── components/          # Reusable UI components
-│   ├── pages/              # Main application pages
-│   ├── context/            # React context providers
-│   ├── services/           # API service layer
-│   └── App.jsx             # Main app component
-├── server/                  # Backend Express API
-│   ├── config/             # Database configuration
-│   ├── controllers/        # Route controllers
-│   ├── middleware/         # Custom middleware
-│   ├── models/             # MongoDB models
-│   ├── routes/             # API routes
-│   └── server.js           # Express server
-├── public/                 # Static assets
-├── .env.server            # Backend environment variables
-└── package.json           # Unified dependencies
+```text
+smart-resume-matcher/
+│
+├── src/                      # Frontend (React)
+├── server/                   # Backend (Node.js)
+│   ├── routes/
+│   ├── models/
+│   ├── controllers/
+│   └── utils/
+│       └── nlpMatcher.js     # Matching logic (TF-IDF + SBERT)
+│
+├── public/
+├── sbert_api.py              # SBERT Python API
+├── .env.server
+└── package.json
 ```
 
-## 🎯 Available Scripts
+---
 
-```bash
-npm start          # Start both frontend and backend
-npm run dev        # Start frontend only
-npm run server     # Start backend only
-npm run server:dev # Start backend with nodemon
-npm run build      # Build for production
-npm run preview    # Preview production build
+## 🎯 Matching Algorithm
+
+Final score is calculated using:
+
+```text
+Final Score =
+0.25 × TF-IDF +
+0.25 × Skills Match +
+0.15 × String Similarity +
+0.35 × SBERT Semantic Similarity
 ```
 
-## 🎨 Key Features Demo
+---
 
-### Applicant Flow
-1. **Signup/Login** → Create account or sign in
-2. **Upload Resume** → Drag & drop PDF/DOCX files
-3. **Browse Jobs** → See available positions
-4. **Apply** → Click "Apply Now" on any job
-5. **View Match** → See detailed compatibility analysis
-6. **Get Recommendations** → Receive personalized improvement tips
+## 🔥 Key Highlights
 
-### Recruiter Flow
-1. **Signup/Login** → Create recruiter account
-2. **Post Job** → Use interactive job builder or upload image
-3. **View Candidates** → See all applicants with match scores
-4. **Analyze Resumes** → Click "View Resume" for detailed analysis
-5. **Sort & Filter** → Organize candidates by match criteria
+* 🤖 AI-powered resume analysis
+* 🧠 Semantic understanding using SBERT
+* ⚡ Real-time scoring system
+* 📊 Multi-factor evaluation
+* 🏗️ Scalable microservice architecture
+
+---
 
 ## 🔮 Future Enhancements
 
-- 🤖 **Real AI Integration**: Connect with OpenAI/Hugging Face APIs
-- 🔍 **Advanced Search**: Elasticsearch for powerful job/candidate search
-- 📧 **Email Notifications**: Automated matching alerts
-- 📊 **Analytics Dashboard**: Detailed insights and reporting
-- 🌐 **Multi-language Support**: Internationalization
-- 📱 **Mobile App**: React Native implementation
+* GPT-based resume suggestions
+* Email notifications
+* Advanced analytics dashboard
+* Mobile app (React Native)
+* Multi-language support
+
+---
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. Fork repository
+2. Create feature branch
+3. Commit changes
+4. Push to GitHub
+5. Create Pull Request
+
+---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License
+
+---
 
 ## 🙏 Acknowledgments
 
-- Built with ❤️ using React and Express.js
-- Inspired by modern job platforms like LinkedIn and Indeed
-- UI/UX designed for optimal user experience
+* Sentence Transformers (SBERT)
+* React & Node.js community
+* Inspired by LinkedIn & modern job platforms
 
 ---
+
