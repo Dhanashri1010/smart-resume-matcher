@@ -3,7 +3,7 @@ const { body, validationResult } = require('express-validator');
 const Job = require('../models/Job');
 const Application = require('../models/Application');
 const { requireAuth } = require('../middleware/auth');
-const nlpMatcher = require('../utils/nlpMatcher');
+const { calculateAdvancedMatchScore } = require('../utils/scoring');
 
 const router = express.Router();
 
@@ -143,7 +143,7 @@ router.post(
         jobs.map(async (job) => {
           const jobSkills = Array.isArray(job.skills) ? job.skills : [];
           const jobText = `${job.title || ''} ${job.description || ''} ${jobSkills.join(' ')} ${job.experience || ''}`;
-          const nlpResult = await nlpMatcher.calculateAdvancedMatch(resumeText, jobText);
+          const matchScore = await calculateAdvancedMatchScore(resumeText, job);
 
           return {
             jobId: job._id,
@@ -156,12 +156,12 @@ router.post(
             postedDate: job.createdAt,
             alreadyApplied: appliedJobIds.has(String(job._id)),
             match: {
-              overall: Number(nlpResult?.overallMatch) || 0,
-              skills: Number(nlpResult?.skillsMatch) || 0,
-              keywords: Number(nlpResult?.semanticSimilarity) || 0,
-              analysis: nlpResult?.analysis || '',
-              matchedTerms: nlpResult?.matchedTerms || [],
-              missingSkills: nlpResult?.missingSkills || []
+              overall: matchScore.overall || 0,
+              skills: matchScore.skills || 0,
+              keywords: matchScore.keywords || 0,
+              analysis: matchScore.nlpAnalysis.analysis || '',
+              matchedTerms: matchScore.nlpAnalysis.matchedTerms || [],
+              missingSkills: matchScore.nlpAnalysis.missingSkills || []
             }
           };
         })
