@@ -223,14 +223,6 @@ const ApplicantDashboard = () => {
               details: {
                 match: `Candidate: ${educationDetails.candidateLevel || 'N/A'} | Required: ${educationDetails.requiredLevel || 'N/A'}`
               }
-            },
-            keywords: {
-              score: response.application.matchScore.keywords,
-              details: {
-                tfidf: nlpAnalysis.tfidfSimilarity || 0,
-                stringSimilarity: nlpAnalysis.stringSimilarity || 0,
-                semanticSimilarity: nlpAnalysis.semanticSimilarity || 0
-              }
             }
           }
         };

@@ -158,7 +158,7 @@ router.post(
             match: {
               overall: Number(nlpResult?.overallMatch) || 0,
               skills: Number(nlpResult?.skillsMatch) || 0,
-              keywords: Number(nlpResult?.tfidfSimilarity) || 0,
+              keywords: Number(nlpResult?.semanticSimilarity) || 0,
               analysis: nlpResult?.analysis || '',
               matchedTerms: nlpResult?.matchedTerms || [],
               missingSkills: nlpResult?.missingSkills || []

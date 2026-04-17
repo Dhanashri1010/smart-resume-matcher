@@ -98,13 +98,7 @@ const MatchAnalysis = ({ matchData }) => {
                       {data.details.match}
                     </p>
                   )}
-                  {category === 'keywords' && data.details && (
-                    <div className="text-gray-300 space-y-1">
-                      <p>TF-IDF: <span className="text-cyan-300">{data.details.tfidf || 0}%</span></p>
-                      <p>String Similarity: <span className="text-cyan-300">{data.details.stringSimilarity || 0}%</span></p>
-                      <p>Semantic Similarity: <span className="text-cyan-300">{data.details.semanticSimilarity || 0}%</span></p>
-                    </div>
-                  )}
+
                 </div>
               )}
             </div>

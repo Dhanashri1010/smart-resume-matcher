@@ -95,11 +95,7 @@ const CandidateCard = ({ candidate, onViewDetails }) => {
                     {category === 'education' && (
                       <span className="text-gray-300">{data.details.match}</span>
                     )}
-                    {category === 'keywords' && (
-                      <span className="text-gray-300">
-                        TF-IDF: {data.details.tfidf || 0}% | String: {data.details.stringSimilarity || 0}% | Semantic: {data.details.semanticSimilarity || 0}%
-                      </span>
-                    )}
+
                   </div>
                 )}
               </div>

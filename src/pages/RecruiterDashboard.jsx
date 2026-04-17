@@ -144,14 +144,6 @@ Benefits:
               details: {
                 match: `Candidate: ${app.matchScore?.nlpAnalysis?.educationDetails?.candidateLevel || 'N/A'} | Required: ${app.matchScore?.nlpAnalysis?.educationDetails?.requiredLevel || 'N/A'}`
               }
-            },
-            keywords: {
-              score: app.matchScore.keywords,
-              details: {
-                tfidf: app.matchScore?.nlpAnalysis?.tfidfSimilarity || 0,
-                stringSimilarity: app.matchScore?.nlpAnalysis?.stringSimilarity || 0,
-                semanticSimilarity: app.matchScore?.nlpAnalysis?.semanticSimilarity || 0
-              }
             }
           }
         }));

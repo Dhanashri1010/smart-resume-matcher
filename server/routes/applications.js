@@ -156,7 +156,7 @@ async function calculateAdvancedMatchScore(resumeText, job) {
     const safeSkillsMatch = Number(nlpResult?.skillsMatch) || 0;
     const safeOverall = Number(nlpResult?.overallMatch) || 0;
     const safeKeywords = Math.max(
-      Number(nlpResult?.tfidfSimilarity) || 0,
+      Number(nlpResult?.semanticSimilarity) || 0,
       keywordCoverageScore
     );
     const safeSkills = Math.min(Math.max(legacySkillsScore, safeSkillsMatch), 100);
@@ -176,7 +176,7 @@ async function calculateAdvancedMatchScore(resumeText, job) {
       education: educationScore,
       keywords: Math.min(safeKeywords, 100),
       nlpAnalysis: {
-        tfidfSimilarity: safeKeywords,
+        tfidfSimilarity: 0,
         stringSimilarity: Number(nlpResult?.stringSimilarity) || 0,
         semanticSimilarity: Number(nlpResult?.semanticSimilarity) || 0,
         matchedTerms: nlpResult?.matchedTerms || [],
