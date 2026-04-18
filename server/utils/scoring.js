@@ -21,7 +21,7 @@ async function calculateAdvancedMatchScore(resumeText, job) {
     const legacySkillsScore = calculateLegacySkillsMatch(resumeText, jobSkills);
     const keywordCoverageScore = calculateKeywordCoverageScore(resumeText, jobText);
     const experienceDetails = getExperienceDetails(resumeText, job.experience);
-    const educationDetails = getEducationDetails(resumeText, job.description);
+    const educationDetails = getEducationDetails(resumeText, job.education || job.description);
     const experienceScore = experienceDetails.score;
     const educationScore = educationDetails.score;
 

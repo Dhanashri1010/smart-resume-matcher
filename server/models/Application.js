@@ -31,7 +31,17 @@ const applicationSchema = new mongoose.Schema({
       semanticSimilarity: { type: Number, default: 0 },
       matchedTerms: [{ type: String }],
       missingSkills: [{ type: String }],
-      analysis: { type: String, default: '' }
+      analysis: { type: String, default: '' },
+      experienceDetails: {
+        score: { type: Number, default: 0 },
+        candidateYears: { type: Number, default: 0 },
+        requiredYears: { type: Number, default: 0 }
+      },
+      educationDetails: {
+        score: { type: Number, default: 0 },
+        candidateLevel: { type: String, default: '' },
+        requiredLevel: { type: String, default: '' }
+      }
     }
   },
   status: {

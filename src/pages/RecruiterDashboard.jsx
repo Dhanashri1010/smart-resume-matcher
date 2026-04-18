@@ -15,6 +15,7 @@ const RecruiterDashboard = () => {
       company: '',
       description: '',
       experience: '',
+      education: '',
       location: '',
       skills: ''
     };
@@ -171,7 +172,7 @@ Benefits:
         // Auto-generate description if not provided
         let description = jobData.description;
         if (!description) {
-          description = `We are looking for a talented ${jobData.title} to join our team at ${jobData.company}. ${jobData.experience ? `The ideal candidate should have ${jobData.experience} of experience ` : ''}${jobData.skills ? `with expertise in ${jobData.skills}. ` : ''}${jobData.location ? `This position is ${jobData.location === 'Remote' ? 'fully remote' : `based in ${jobData.location}`}. ` : ''}Join us to work on exciting projects and grow your career in a dynamic environment.`;
+          description = `We are looking for a talented ${jobData.title} to join our team at ${jobData.company}. ${jobData.experience ? `The ideal candidate should have ${jobData.experience} of experience ` : ''}${jobData.education ? `and a ${jobData.education} degree ` : ''}${jobData.skills ? `with expertise in ${jobData.skills}. ` : ''}${jobData.location ? `This position is ${jobData.location === 'Remote' ? 'fully remote' : `based in ${jobData.location}`}. ` : ''}Join us to work on exciting projects and grow your career in a dynamic environment.`;
         }
 
         const response = await fetch('http://localhost:5001/api/jobs', {
@@ -186,6 +187,7 @@ Benefits:
             description: description.trim(),
             skills: jobData.skills ? jobData.skills.trim() : '',
             experience: jobData.experience ? jobData.experience.trim() : '',
+            education: jobData.education ? jobData.education.trim() : '',
             location: jobData.location ? jobData.location.trim() : ''
           })
         });
@@ -193,7 +195,7 @@ Benefits:
         const data = await response.json();
         if (data.success) {
           alert('Job posted successfully!');
-          const emptyJobData = { title: '', company: '', description: '', experience: '', location: '', skills: '' };
+          const emptyJobData = { title: '', company: '', description: '', experience: '', education: '', location: '', skills: '' };
           setJobData(emptyJobData);
           setUploadedImage(null);
           setImagePreview(null);
@@ -314,6 +316,7 @@ Benefits:
                     <div className="mt-3 text-sm text-gray-400">
                       <p><strong>Location:</strong> {selectedJobForCandidates.location}</p>
                       <p><strong>Experience:</strong> {selectedJobForCandidates.experience}</p>
+                      <p><strong>Education:</strong> {selectedJobForCandidates.education || 'Not specified'}</p>
                       <p><strong>Skills:</strong> {selectedJobForCandidates.skills.join(', ') || 'Not specified'}</p>
                     </div>
                   )}
@@ -380,6 +383,7 @@ Benefits:
                         <div className="flex items-center space-x-4 text-sm text-gray-500">
                           <span>📍 {job.location}</span>
                           <span>💼 {job.experience}</span>
+                          <span>🎓 {job.education || 'Not specified'}</span>
                           <span>📅 {new Date(job.createdAt).toLocaleDateString()}</span>
                         </div>
                       </div>
@@ -435,10 +439,10 @@ Benefits:
                       <h3 className="text-cyan-400 font-semibold mb-3">Quick Start Templates</h3>
                       <div className="grid grid-cols-2 gap-3">
                         {[
-                          { title: 'Frontend Developer', skills: ['React', 'JavaScript', 'CSS'], exp: '2-4 years' },
-                          { title: 'Backend Developer', skills: ['Node.js', 'Python', 'SQL'], exp: '3-5 years' },
-                          { title: 'Full Stack Developer', skills: ['React', 'Node.js', 'MongoDB'], exp: '4-6 years' },
-                          { title: 'Data Scientist', skills: ['Python', 'Machine Learning', 'SQL'], exp: '2-5 years' }
+                          { title: 'Frontend Developer', skills: ['React', 'JavaScript', 'CSS'], exp: '2-4 years', edu: 'Bachelor' },
+                          { title: 'Backend Developer', skills: ['Node.js', 'Python', 'SQL'], exp: '3-5 years', edu: 'Bachelor' },
+                          { title: 'Full Stack Developer', skills: ['React', 'Node.js', 'MongoDB'], exp: '4-6 years', edu: 'Master' },
+                          { title: 'Data Scientist', skills: ['Python', 'Machine Learning', 'SQL'], exp: '2-5 years', edu: 'Master' }
                         ].map((template, index) => (
                           <button
                             key={index}
@@ -447,7 +451,8 @@ Benefits:
                                 ...jobData,
                                 title: template.title,
                                 skills: template.skills.join(', '),
-                                experience: template.exp
+                                experience: template.exp,
+                                education: template.edu
                               };
                               setJobData(newJobData);
                               localStorage.setItem('jobFormData', JSON.stringify(newJobData));
@@ -535,8 +540,8 @@ Benefits:
                       </div>
                     </div>
 
-                    {/* Experience & Location */}
-                    <div className="grid grid-cols-2 gap-4">
+                    {/* Experience, Education & Location */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div>
                         <h3 className="text-cyan-400 font-semibold mb-3">Experience</h3>
                         <div className="space-y-2">
@@ -551,6 +556,25 @@ Benefits:
                               }`}
                             >
                               {exp}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3 className="text-cyan-400 font-semibold mb-3">Education</h3>
+                        <div className="space-y-2">
+                          {['None', 'Diploma', 'Bachelor', 'Master', 'PhD'].map(edu => (
+                            <button
+                              key={edu}
+                              onClick={() => setJobData({...jobData, education: edu})}
+                              className={`w-full p-2 rounded-lg text-sm transition-colors duration-200 ${
+                                jobData.education === edu
+                                  ? 'bg-cyan-600 text-white'
+                                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                              }`}
+                            >
+                              {edu}
                             </button>
                           ))}
                         </div>
@@ -610,6 +634,7 @@ Benefits:
                         
                         <div className="text-sm text-gray-400 space-y-1">
                           {jobData.experience && <div>Experience: {jobData.experience}</div>}
+                          {jobData.education && <div>Education: {jobData.education}</div>}
                           {jobData.location && <div>Location: {jobData.location}</div>}
                         </div>
                       </div>
@@ -707,6 +732,7 @@ Benefits:
                             {jobData.title && jobData.company ? (
                               `We are looking for a talented ${jobData.title} to join our team at ${jobData.company}. 
                               ${jobData.experience ? `The ideal candidate should have ${jobData.experience} of experience ` : ''}
+                              ${jobData.education ? `and a ${jobData.education} degree ` : ''}
                               ${jobData.skills ? `with expertise in ${jobData.skills}. ` : ''}
                               ${jobData.location ? `This position is ${jobData.location === 'Remote' ? 'fully remote' : `based in ${jobData.location}`}. ` : ''}
                               Join us to work on exciting projects and grow your career in a dynamic environment.`
@@ -723,7 +749,7 @@ Benefits:
                         <button
                           onClick={() => {
                             const description = jobData.title && jobData.company ? 
-                              `We are looking for a talented ${jobData.title} to join our team at ${jobData.company}. ${jobData.experience ? `The ideal candidate should have ${jobData.experience} of experience ` : ''}${jobData.skills ? `with expertise in ${jobData.skills}. ` : ''}${jobData.location ? `This position is ${jobData.location === 'Remote' ? 'fully remote' : `based in ${jobData.location}`}. ` : ''}Join us to work on exciting projects and grow your career in a dynamic environment.` : '';
+                              `We are looking for a talented ${jobData.title} to join our team at ${jobData.company}. ${jobData.experience ? `The ideal candidate should have ${jobData.experience} of experience ` : ''}${jobData.education ? `and a ${jobData.education} degree ` : ''}${jobData.skills ? `with expertise in ${jobData.skills}. ` : ''}${jobData.location ? `This position is ${jobData.location === 'Remote' ? 'fully remote' : `based in ${jobData.location}`}. ` : ''}Join us to work on exciting projects and grow your career in a dynamic environment.` : '';
                             setJobData({...jobData, description});
                           }}
                           className="w-full bg-gray-700 hover:bg-gray-600 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200"

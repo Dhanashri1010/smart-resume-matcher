@@ -32,7 +32,7 @@ router.post('/',
         });
       }
 
-      const { title, company, description, skills, experience, location } = req.body;
+      const { title, company, description, skills, experience, location, education } = req.body;
       
       const job = new Job({
         title,
@@ -40,6 +40,7 @@ router.post('/',
         description: description || `We are looking for a talented ${title} to join our team at ${company}.`,
         skills: skills ? skills.split(',').map(s => s.trim()).filter(s => s) : [],
         experience: experience || 'Not specified',
+        education: education || 'Not specified',
         location: location || 'Not specified',
         recruiterId: req.session.userId
       });
@@ -142,7 +143,7 @@ router.post(
       const scoredJobs = await Promise.all(
         jobs.map(async (job) => {
           const jobSkills = Array.isArray(job.skills) ? job.skills : [];
-          const jobText = `${job.title || ''} ${job.description || ''} ${jobSkills.join(' ')} ${job.experience || ''}`;
+          const jobText = `${job.title || ''} ${job.description || ''} ${jobSkills.join(' ')} ${job.experience || ''} ${job.education || ''}`;
           const matchScore = await calculateAdvancedMatchScore(resumeText, job);
 
           return {
@@ -152,6 +153,7 @@ router.post(
             description: job.description,
             skills: jobSkills,
             experience: job.experience,
+            education: job.education,
             location: job.location,
             postedDate: job.createdAt,
             alreadyApplied: appliedJobIds.has(String(job._id)),

@@ -23,6 +23,10 @@ const jobSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  education: {
+    type: String,
+    required: false
+  },
   location: {
     type: String,
     required: true
